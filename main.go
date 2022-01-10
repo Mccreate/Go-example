@@ -23,5 +23,10 @@ func lenAndUpper(name string) (int, string) {
 func main() {
 	fmt.Println(multiply(2, 2))
 	totalLength, upperName := lenAndUpper("mccreate")
+	//Go must be use all variable.
 	fmt.Println(totalLength, upperName)
+
+	//You can ignore Variable declared but not used in below.
+	exLength, _ := lenAndUpper("mccreate")
+	fmt.Println(exLength)
 }
