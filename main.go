@@ -1,61 +1,81 @@
 package main
 
-import (
-	"fmt"
-	"strings"
-)
+import "fmt"
 
-// Go needs Data Type in below.
+// GO has only "for"!
+// for loop Example
+
 /*
-   func funcName(argv1 argv1's Datatype, argv2 argv2's Datatype, ...) return's DataType {
-	   return blah
-   }
+	Example 1
+	for loopVar := range loopThing {
+		loop code...
+	}
 */
-func multiply(a int, b int) int {
-	return a * b
+func loopExample1(numbers ...int) int {
+	sum := 0
+	// number == loopVar
+	// numbers == loopThing
+	for index, number := range numbers {
+		fmt.Println(index, number)
+		sum += number
+	}
+	return sum
 }
 
-// Go can return many argvs.
-func lenAndUpper(name string) (int, string) {
-	return len(name), strings.ToUpper(name)
+/*
+	Example 2
+	It's similar C for loop style.
+	for(int i = 0; i<loopEnd; i++){
+		loop code...
+	}
+
+	In Go,
+	for i := 0; i < loopEnd; i++ {
+		loop code...
+	}
+*/
+func loopExample2(numbers ...int) int {
+	for i := 0; i < len(numbers); i++ {
+		fmt.Println(i, numbers[i])
+	}
+	return 1
 }
 
-// Nake Return Example.
-func lenAndUpperNaked(name string) (length int, uppercase string) {
-	fmt.Println("Naked Return Example.")
-	length = len(name)
-	uppercase = strings.ToUpper(name)
+// "_" symbol is ignore symbol.
+func loopExample3(numbers ...int) int {
+	total := 0
+	for _, number := range numbers {
+		total += number
+	}
+	return total
+}
+
+// Naked Return
+func loopExample4(numbers ...int) (total int) {
+	total = 0
+	for _, number := range numbers {
+		total += number
+	}
 	return
 }
 
-// defer Example.
-// After Func returns, "defer" keyowrd executes.
-func lenAndUpperDefer(name string) (length int, uppercase string) {
-	defer fmt.Println("I'm done.")
-	fmt.Println("Defer Example.")
-	length = len(name)
-	uppercase = strings.ToUpper(name)
-	return
-}
+// defer
+func loopExample5(numbers ...int) (total int) {
 
-// When there are many func arguments, You can shorten using "..." keyword.
-func repeatMe(words ...string) {
-	fmt.Println(words)
+	total = 0
+	for _, number := range numbers {
+		total += number
+	}
+	defer fmt.Println("Defer... I'm done.")
+	defer fmt.Println(total)
+	return
+
 }
 
 func main() {
-	fmt.Println(multiply(2, 2))
-	totalLength, upperName := lenAndUpper("mccreate")
-	// Go must be use all variable.
-	fmt.Println(totalLength, upperName)
-
-	// You can ignore "Variable declared but not used" in below.
-	exLength, _ := lenAndUpper("mccreate")
-	fmt.Println(exLength)
-
-	repeatMe("mc", "cre", "ate")
-
-	fmt.Println(lenAndUpperNaked("mccreate"))
-
-	fmt.Println(lenAndUpperDefer("mccreate"))
+	fmt.Println(loopExample1(1))
+	fmt.Println(loopExample2(1, 2))
+	fmt.Println(loopExample3(1, 2, 3))
+	fmt.Println(loopExample4(1, 2, 3, 4))
+	fmt.Println(loopExample5(1, 2, 3, 4, 5))
 }
