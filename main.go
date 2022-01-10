@@ -2,80 +2,20 @@ package main
 
 import "fmt"
 
-// GO has only "for"!
-// for loop Example
-
-/*
-	Example 1
-	for loopVar := range loopThing {
-		loop code...
+func condition1(age int) bool {
+	if age < 18 {
+		return false
 	}
-*/
-func loopExample1(numbers ...int) int {
-	sum := 0
-	// number == loopVar
-	// numbers == loopThing
-	for index, number := range numbers {
-		fmt.Println(index, number)
-		sum += number
-	}
-	return sum
+	return true
 }
 
-/*
-	Example 2
-	It's similar C for loop style.
-	for(int i = 0; i<loopEnd; i++){
-		loop code...
+func condition2(age int) bool {
+	if koreanAge := age + 2; koreanAge < 18 {
+		return false
 	}
-
-	In Go,
-	for i := 0; i < loopEnd; i++ {
-		loop code...
-	}
-*/
-func loopExample2(numbers ...int) int {
-	for i := 0; i < len(numbers); i++ {
-		fmt.Println(i, numbers[i])
-	}
-	return 1
+	return true
 }
-
-// "_" symbol is ignore symbol.
-func loopExample3(numbers ...int) int {
-	total := 0
-	for _, number := range numbers {
-		total += number
-	}
-	return total
-}
-
-// Naked Return
-func loopExample4(numbers ...int) (total int) {
-	total = 0
-	for _, number := range numbers {
-		total += number
-	}
-	return
-}
-
-// defer
-func loopExample5(numbers ...int) (total int) {
-
-	total = 0
-	for _, number := range numbers {
-		total += number
-	}
-	defer fmt.Println("Defer... I'm done.")
-	defer fmt.Println(total)
-	return
-
-}
-
 func main() {
-	fmt.Println(loopExample1(1))
-	fmt.Println(loopExample2(1, 2))
-	fmt.Println(loopExample3(1, 2, 3))
-	fmt.Println(loopExample4(1, 2, 3, 4))
-	fmt.Println(loopExample5(1, 2, 3, 4, 5))
+	fmt.Println(condition1(17))
+	fmt.Println(condition2(17))
 }
