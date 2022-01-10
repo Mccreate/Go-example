@@ -22,5 +22,6 @@ func lenAndUpper(name string) (int, string) {
 
 func main() {
 	fmt.Println(multiply(2, 2))
-	fmt.Println(lenAndUpper("mccreate"))
+	totalLength, upperName := lenAndUpper("mccreate")
+	fmt.Println(totalLength, upperName)
 }
