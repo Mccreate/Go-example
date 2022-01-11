@@ -17,7 +17,7 @@ func main() {
 	fmt.Println(names2)
 	fmt.Println(numbers)
 
-	// You can assign non-limited length list
+	// You can assign unlimited length list
 	// list_name := []Data_type{list_elements}
 	non_limited_list := []int{1, 2, 3, 4, 5}
 	fmt.Println(non_limited_list)
