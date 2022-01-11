@@ -2,27 +2,19 @@ package main
 
 import "fmt"
 
-// list
+// Map.
 
+// You assign map, in below.
+// var_name := map[key_dType]val_dType{key1: val1, key2: val2, ...}
 func main() {
-	// how to make list?
-	// list_name := [list_size]Data_Type{"your", "list", "element"}
-	names := [3]string{"mc", "cre", "ate"}
-	names2 := [3]string{"mc"}
-	numbers := [3]int{1, 2}
+	mccreate := map[string]string{"name": "Min Woo Kim", "school": "UOU"}
+	fmt.Println(mccreate)
 
-	// OverFlow!!
-	// names[3] = "Overflow String"
-	fmt.Println(names)
-	fmt.Println(names2)
-	fmt.Println(numbers)
+	// You can call map in below.
+	// var_name[key]
+	fmt.Println(mccreate["name"])
 
-	// You can assign unlimited length list
-	// list_name := []Data_type{list_elements}
-	non_limited_list := []int{1, 2, 3, 4, 5}
-	fmt.Println(non_limited_list)
-
-	// append Example
-	non_limited_list = append(non_limited_list, 4)
-	fmt.Println(non_limited_list)
+	for key, _ := range mccreate {
+		fmt.Println(key)
+	}
 }
