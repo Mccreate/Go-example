@@ -2,19 +2,32 @@ package main
 
 import "fmt"
 
-// Map.
+// Struct
 
-// You assign map, in below.
-// var_name := map[key_dType]val_dType{key1: val1, key2: val2, ...}
+// If you want right this with Maps,
+/*
+	{
+		"name" : "Min Woo Kim",
+		"age" : 26,
+		"school" : "UOU"
+	}
+*/
+
+// struct is needed.
+type person struct {
+	name   string
+	age    int
+	school string
+	hobby  []string
+}
+
 func main() {
-	mccreate := map[string]string{"name": "Min Woo Kim", "school": "UOU"}
+	mccreate := person{"Min Woo Kim", 26, "UOU", []string{"Playing a guitar", "Playing a Game with XBOX"}}
 	fmt.Println(mccreate)
 
-	// You can call map in below.
-	// var_name[key]
-	fmt.Println(mccreate["name"])
-
-	for key, _ := range mccreate {
-		fmt.Println(key)
-	}
+	// You also call a element.
+	fmt.Println(mccreate.age)
+	fmt.Println(mccreate.name)
+	fmt.Println(mccreate.hobby)
+	fmt.Println(mccreate.hobby[0])
 }
