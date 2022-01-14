@@ -8,18 +8,19 @@ import (
 func main() {
 	// how to make channel
 	// chan dType
-	c := make(chan bool)
-	people := [2]string{"mc", "create"}
+	c := make(chan string)
+	people := [5]string{"mc", "create", "Kim", "Min", "Woo"}
 	for _, person := range people {
 		go isSexy(person, c)
 	}
-	fmt.Println(<-c)
-	fmt.Println(<-c)
+	// channel msg receiver
+	for i := 0; i < len(people); i++ {
+		fmt.Println(<-c)
+	}
 }
 
-func isSexy(person string, c chan bool) {
-	time.Sleep(time.Second * 5)
-	fmt.Println(person)
+func isSexy(person string, c chan string) {
+	time.Sleep(time.Second * 2)
 	// You can assign value with channel "val <- channel_val"
-	c <- true
+	c <- person + " is sexy"
 }
