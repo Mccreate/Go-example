@@ -1,28 +1,40 @@
 package main
 
 import (
+	"errors"
 	"fmt"
-	"github.com/mccreate/Go-exercise/mydict"
+	"net/http"
 )
 
+var errRequestFailed = errors.New("Request failed.")
+
 func main() {
-	dictionary := mydict.Dictionary{}
-	key, value := "hello", "greeting"
-
-	err := dictionary.Add(key, value)
-	if err != nil {
-		fmt.Println(err)
+	urls := []string{
+		"https://www.airbnb.com/",
+		"https://www.google.com/",
+		"https://www.amazon.com/",
+		"https://www.reddit.com/",
+		"https://www.google.com/",
+		"https://soundcloud.com/",
+		"https://www.facebook.com/",
+		"https://www.instagram.com/",
+		"https://academy.nomadcoders.co/",
 	}
-	def1, _ := dictionary.Search(key)
-	fmt.Println(def1)
-
-	err2 := dictionary.Update(key, "first")
-	if err2 != nil {
-		fmt.Println(err2)
+	for _, url := range urls {
+		err := hitURL(url)
+		if err != nil {
+			fmt.Println(err)
+		} else {
+			fmt.Println(" Connected")
+		}
 	}
+}
 
-	dictionary.Delete(key)
-
-	def2, errMsg := dictionary.Search(key)
-	fmt.Println(def2, errMsg)
+func hitURL(url string) error {
+	fmt.Print("Checking:", url)
+	resp, err := http.Get(url)
+	if err != nil || resp.StatusCode >= 400 {
+		return errRequestFailed
+	}
+	return nil
 }
