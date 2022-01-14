@@ -1,5 +1,7 @@
 package main
 
+// Need to type
+// go get github.com/PuerkitoBio/goquery
 import (
 	"github.com/PuerkitoBio/goquery"
 	"log"
