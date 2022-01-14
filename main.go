@@ -1,52 +1,40 @@
 package main
 
 import (
-	"fmt"
+	"github.com/PuerkitoBio/goquery"
+	"log"
 	"net/http"
 )
 
-type requestResult struct {
-	url    string
-	status string
-}
+var baseURL = "https://kr.indeed.com/jobs?q=python&limit=50"
 
 func main() {
-	c := make(chan requestResult)
-	results := map[string]string{}
+	getPages()
+}
 
-	urls := []string{
-		"https://www.airbnb.com/",
-		"https://www.google.com/",
-		"https://www.amazon.com/",
-		"https://www.reddit.com/",
-		"https://www.google.com/",
-		"https://soundcloud.com/",
-		"https://www.facebook.com/",
-		"https://www.instagram.com/",
-		"https://academy.nomadcoders.co/",
-	}
+func getPages() int {
+	res, err := http.Get(baseURL)
 
-	for _, url := range urls {
-		go hitURL(url, c)
-	}
+	checkErr(err)
+	checkCode(res)
 
-	for i := 0; i < len(urls); i++ {
-		result := <-c
-		results[result.url] = result.status
-	}
+	defer res.Body.Close()
 
-	for url, status := range results {
-		fmt.Println(url, status)
+	doc, err := goquery.NewDocumentFromReader(res.Body)
+	checkErr(err)
+
+	doc.Find(".pagination").Each()
+	return 0
+}
+
+func checkErr(err error) {
+	if err != nil {
+		log.Fatalln(err)
 	}
 }
 
-// Send only
-func hitURL(url string, c chan<- requestResult) {
-
-	resp, err := http.Get(url)
-	status := "OK"
-	if err != nil || resp.StatusCode >= 400 {
-		status = "FAILED"
+func checkCode(res *http.Response) {
+	if res.StatusCode != 200 {
+		log.Fatalln("Connection Failed. Status: ", res.StatusCode)
 	}
-	c <- requestResult{url: url, status: status}
 }
