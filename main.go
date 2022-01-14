@@ -2,21 +2,15 @@ package main
 
 import (
 	"fmt"
-	"github.com/mccreate/Go-exercise/accounts"
+	"github.com/mccreate/Go-exercise/mydict"
 )
 
 func main() {
-	account := accounts.NewAccount("mccreate")
-	account.Deposit(100)
-	fmt.Println(account.GetBalance())
-	err := account.Withdraw(1000)
-
-	// if error is occurred,
+	dictionary := mydict.Dictionary{"first": "myFirst"}
+	definition, err := dictionary.Search("first")
 	if err != nil {
-		// sys.exit
-		// log.Fatalln(err)
 		fmt.Println(err)
+	} else {
+		fmt.Println(definition)
 	}
-	fmt.Println(account.String())
-
 }
