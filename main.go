@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"github.com/mccreate/Go-exercise/accounts"
-	"log"
 )
 
 func main() {
@@ -15,8 +14,9 @@ func main() {
 	// if error is occurred,
 	if err != nil {
 		// sys.exit
-		log.Fatalln(err)
+		// log.Fatalln(err)
+		fmt.Println(err)
 	}
-	fmt.Println(account.GetBalance())
+	fmt.Println(account.String())
 
 }

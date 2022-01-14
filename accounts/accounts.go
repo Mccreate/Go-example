@@ -1,6 +1,9 @@
 package accounts
 
-import "errors"
+import (
+	"errors"
+	"fmt"
+)
 
 // Account struct
 type Account struct {
@@ -23,7 +26,7 @@ func (a *Account) Deposit(amount int) {
 
 }
 
-// GetBalance is return Account's balance.
+// GetBalance is return Account's balance is not a copy.
 func (a Account) GetBalance() int {
 	return a.balance
 }
@@ -38,4 +41,17 @@ func (a *Account) Withdraw(amount int) error {
 	a.balance -= amount
 	// if not error occurred, return nil.
 	return nil
+}
+
+func (a *Account) ChangeOwner(newOwner string) {
+	a.owner = newOwner
+}
+
+// GetOwner return owner is not a copy.
+func (a Account) GetOwner() string {
+	return a.owner
+}
+
+func (a Account) String() string {
+	return fmt.Sprint(a.GetOwner(), "'s account. Has: ", a.GetBalance())
 }
