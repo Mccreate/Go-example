@@ -10,6 +10,14 @@ import (
 	"strconv"
 )
 
+type extractedJob struct {
+	id       string
+	title    string
+	location string
+	salary   string
+	summary  string
+}
+
 var baseURL = "https://kr.indeed.com/jobs?q=python&limit=50"
 
 func main() {
@@ -21,7 +29,25 @@ func main() {
 
 func getPage(page int) {
 	pageURL := baseURL + "&start=" + strconv.Itoa(page*50)
-	fmt.Println("Requesting", pageURL)
+
+	res, err := http.Get(pageURL)
+	checkErr(err)
+	checkCode(res)
+
+	doc, err := goquery.NewDocumentFromReader(res.Body)
+	checkErr(err)
+
+	searchCards := doc.Find(".tapItem")
+	searchCards.Each(func(i int, card *goquery.Selection) {
+		id, _ := card.Attr("data-jk")
+		fmt.Println(id)
+		title := card.Find(".jobTitle>span").Text()
+		fmt.Println(title)
+		location := card.Find(".companyLocation").Text()
+		fmt.Println(location)
+		summary := card.Find(".job-snippet").Text()
+		fmt.Println(summary)
+	})
 }
 
 func getPages() int {
