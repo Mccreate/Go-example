@@ -3,18 +3,29 @@ package main
 // Need to type
 // go get github.com/PuerkitoBio/goquery
 import (
+	"fmt"
 	"github.com/PuerkitoBio/goquery"
 	"log"
 	"net/http"
+	"strconv"
 )
 
 var baseURL = "https://kr.indeed.com/jobs?q=python&limit=50"
 
 func main() {
-	getPages()
+	totalPages := getPages()
+	for i := 0; i < totalPages; i++ {
+		getPage(i)
+	}
+}
+
+func getPage(page int) {
+	pageURL := baseURL + "&start=" + strconv.Itoa(page*50)
+	fmt.Println("Requesting", pageURL)
 }
 
 func getPages() int {
+	pages := 0
 	res, err := http.Get(baseURL)
 
 	checkErr(err)
@@ -25,8 +36,10 @@ func getPages() int {
 	doc, err := goquery.NewDocumentFromReader(res.Body)
 	checkErr(err)
 
-	doc.Find(".pagination").Each()
-	return 0
+	doc.Find(".pagination").Each(func(i int, s *goquery.Selection) {
+		pages = s.Find("a").Length()
+	})
+	return pages
 }
 
 func checkErr(err error) {
